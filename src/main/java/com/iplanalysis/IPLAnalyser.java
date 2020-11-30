@@ -199,6 +199,22 @@ public class IPLAnalyser {
 		}
 		return list;
 	}
+	public List<String> getBestAllRounders() throws IOException, CensusAnalyserException {
+		List<String> allRounder = new ArrayList<>();
+		List<IPLMostRunsCSV> playerWithBestBattingRuns = iplCSVList.stream()
+				.sorted(Comparator.comparingDouble(player -> player.runs)).collect(Collectors.toList());
+		Collections.reverse(playerWithBestBattingRuns);
+		List<IPLMostWktsCSV> playerWithBestBowlingWkts = iplWktsCSVList.stream()
+				.sorted(Comparator.comparingDouble(player -> player.wkts)).collect(Collectors.toList());
+		for (IPLMostRunsCSV mostRunsCSV : playerWithBestBattingRuns) {
+			for (IPLMostWktsCSV mostWktsCSV : playerWithBestBowlingWkts) {
+				if (mostRunsCSV.player.equals(mostWktsCSV.player)) {
+					allRounder.add(mostRunsCSV.player);
+				}
+			}
+		}
+		return allRounder;
+	}
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
