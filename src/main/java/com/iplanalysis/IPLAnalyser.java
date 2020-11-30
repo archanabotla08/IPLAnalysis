@@ -41,6 +41,16 @@ public class IPLAnalyser {
 		System.out.println("sortedStateCensusJson"+sortedStateCensusJson);
 		return sortedStateCensusJson;
 	}
+	public String getTopStrikingRates(String csvFilePath) throws CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		if (iplCSVList == null || iplCSVList.size() == 0) {
+			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+		}
+		Comparator<IPLMostRunsCSV> censusComparator = Comparator.comparing(census -> census.sr);
+		this.sort(censusComparator);
+		String sortedStateCensusJson = new Gson().toJson(this.iplCSVList);
+		return sortedStateCensusJson;
+	}
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {

@@ -34,4 +34,16 @@ public class IPLAnalyserTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void givenIPLInfo_ShouldReturnTopStrikeRatings() {
+		String sortedCensusData = null;
+		try {
+			sortedCensusData = iplAnalyser.getTopStrikingRates(File_Path);
+			IPLMostRunsCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IPLMostRunsCSV[].class);
+			assertNotEquals(333.33, censusCSV[censusCSV.length - 1].avg, 0.0);
+		} catch (CensusAnalyserException e) {
+			e.printStackTrace();
+		}
+	}
 }
