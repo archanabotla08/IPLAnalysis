@@ -126,4 +126,9 @@ public class IPLAnalyserTest {
 		assertEquals("Imran Tahir",
 				iplAnalyser.getBowlersMaximumWicketsWithBestBowlingAvgs(Wkt_File_Path).get(0).player);
 	}
+	
+	@Test
+	public void givenMostWktsCSV_ShouldReturnBestBatting_AndBowlingAverages() throws IOException, CensusAnalyserException {
+		assertEquals("Andre Russell", iplAnalyser.BestBattingAverageWithBestBowlingAverage().get(0));
+	}
 }
