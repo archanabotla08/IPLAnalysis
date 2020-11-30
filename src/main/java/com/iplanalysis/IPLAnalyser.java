@@ -127,6 +127,16 @@ public class IPLAnalyser {
 		String sortedStateCensusJson = new Gson().toJson(this.iplWktsCSVList);
 		return sortedStateCensusJson;
 	}
+	public String getTopBowlingStrikeRates(String csvFilePath) throws CensusAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		if (iplWktsCSVList == null || iplWktsCSVList.size() == 0) {
+			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+		}
+		Comparator<IPLMostWktsCSV> censusComparator = Comparator.comparing(census -> census.sr);
+		this.wktsSort(censusComparator);
+		String sortedStateCensusJson = new Gson().toJson(this.iplWktsCSVList);
+		return sortedStateCensusJson;
+	}
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
@@ -140,6 +150,7 @@ public class IPLAnalyser {
 			}
 		}
 	}
+	
 	public void wktsSort(Comparator<IPLMostWktsCSV> censusComparator) {
 		for (int i = 0; i < iplWktsCSVList.size(); i++) {
 			for (int j = 0; j < iplWktsCSVList.size() - i - 1; j++) {

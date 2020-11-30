@@ -92,4 +92,16 @@ public class IPLAnalyserTest {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	public void givenIPLInfo_ShouldReturnTopBowlingStrikeRates() {
+		String sortedCensusData = null;
+		try {
+			sortedCensusData = iplAnalyser.getTopBowlingStrikeRates(Wkt_File_Path);
+			IPLMostWktsCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IPLMostWktsCSV[].class);
+			assertEquals(120, censusCSV[censusCSV.length - 1].sr, 0.0);
+		} catch (CensusAnalyserException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
