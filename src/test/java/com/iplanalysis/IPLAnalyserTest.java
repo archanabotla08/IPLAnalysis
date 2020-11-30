@@ -136,4 +136,10 @@ public class IPLAnalyserTest {
 	public void givenMostWktsCSV_ShouldReturnBestallRounder() throws IOException, CensusAnalyserException {
 		assertEquals("Andre Russell", iplAnalyser.getBestAllRounders().get(0));
 	}
+	@Test
+	public void givenMostRunsCSV_ShouldReturnMaxHundreds_WithBestBattingAvgs()
+			throws IOException, CensusAnalyserException {
+		assertEquals("David Warner ",
+				iplAnalyser.maximum100sWithBestBattingAverage(Wkt_File_Path).get(0).player);
+	}
 }
