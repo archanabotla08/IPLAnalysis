@@ -51,6 +51,25 @@ public class IPLAnalyser {
 		String sortedStateCensusJson = new Gson().toJson(this.iplCSVList);
 		return sortedStateCensusJson;
 	}
+	public List<IPLMostRunsCSV> getTop4sStrikerCricketer(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		List<IPLMostRunsCSV> playerWithMax4s = iplCSVList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.getNum4s(), player2.getNum4s()))
+				.collect(Collectors.toList());
+		Collections.reverse(playerWithMax4s);
+		return playerWithMax4s;
+	}
+	
+	public List<IPLMostRunsCSV> getTop6sStrikerCricketer(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		List<IPLMostRunsCSV> playerWithMax4s = iplCSVList.stream()
+				.sorted((player1, player2) -> Double.compare(player1.getNum6s(), player2.getNum6s()))
+				.collect(Collectors.toList());
+		Collections.reverse(playerWithMax4s);
+		return playerWithMax4s;
+	}
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
