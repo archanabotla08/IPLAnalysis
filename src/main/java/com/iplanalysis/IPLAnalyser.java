@@ -159,7 +159,17 @@ public class IPLAnalyser {
 				.collect(Collectors.toList());
 	}
 
-
+	public List<IPLMostWktsCSV> greatBowlingAveragesWithBestStrikingRates(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		double playerWithAverages = iplWktsCSVList.stream().map(IPLMostWktsCSV::getAvg).max(Double::compare).get();
+		List<IPLMostWktsCSV> playerWithBestAverages = iplWktsCSVList.stream()
+				.filter(player -> player.getAvg() == playerWithAverages).collect(Collectors.toList());
+		double playerWithBestStrikeRate = playerWithBestAverages.stream().map(IPLMostWktsCSV::getSr)
+				.max(Double::compare).get();
+		return playerWithBestAverages.stream().filter(player -> player.getSr() == playerWithBestStrikeRate)
+				.collect(Collectors.toList());
+	}
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
 			for (int j = 0; j < iplCSVList.size() - i - 1; j++) {

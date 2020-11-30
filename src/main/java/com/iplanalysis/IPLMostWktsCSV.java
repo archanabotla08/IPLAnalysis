@@ -11,6 +11,14 @@ public class IPLMostWktsCSV {
 		return sr;
 	}
 
+	public double getAvg() {
+		return avg;
+	}
+
+	public void setAvg(double avg) {
+		this.avg = avg;
+	}
+
 	public void setSr(double sr) {
 		this.sr = sr;
 	}

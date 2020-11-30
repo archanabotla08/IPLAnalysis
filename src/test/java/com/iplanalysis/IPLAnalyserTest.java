@@ -114,4 +114,10 @@ public class IPLAnalyserTest {
 		assertEquals("Lasith Malinga",
 				new IPLAnalyser().bestBowlingStrikingRatesWith5wN4w(Wkt_File_Path).get(0).player);
 	}
+	@Test
+	public void givenIPLInfo_ShouldReturnGreatBowlingAveragesWithBestStrikingRates()
+			throws IOException, CensusAnalyserException {
+		assertEquals("Krishnappa Gowtham",
+				iplAnalyser.greatBowlingAveragesWithBestStrikingRates(Wkt_File_Path).get(0).player);
+	}
 }
