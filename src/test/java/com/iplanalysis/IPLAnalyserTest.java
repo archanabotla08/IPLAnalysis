@@ -72,4 +72,11 @@ public class IPLAnalyserTest {
 			throws IOException, CensusAnalyserException {
 		assertEquals("MS Dhoni", new IPLAnalyser().bestStrikingRatesWithBestAverages(File_Path).get(0).player);
 	}
+	
+	@Test
+	public void givenIPLInfo_ShouldReturnBestCricketersWhoHitMaxWithBestAverages()
+			throws IOException, CensusAnalyserException {
+		assertEquals("David Warner",
+				new IPLAnalyser().bestCricketersWhoHitMaxWithBestAverages(File_Path).get(0).player);
+	}
 }

@@ -54,6 +54,14 @@ public class IPLMostRunsCSV {
 	public int getNum6s() {
 		return number6s;
 	}
+	public int getRuns() {
+		return runs;
+	}
+
+	public void setRuns(int runs) {
+		this.runs = runs;
+	}
+
 	public double getAvg() {
 		return avg;
 	}
