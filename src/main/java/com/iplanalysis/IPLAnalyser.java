@@ -83,6 +83,17 @@ public class IPLAnalyser {
 		return playerWithBest6sN4s.stream().filter(player -> player.getSr() == playerWithBestStrike)
 				.collect(Collectors.toList());
 	}
+	public List<IPLMostRunsCSV> bestStrikingRatesWithBestAverages(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadCSVData(csvFilePath);
+		double bestAverages = iplCSVList.stream().map(IPLMostRunsCSV::getAvg).max(Double::compare).get();
+		List<IPLMostRunsCSV> playerWithBestAverages = iplCSVList.stream()
+				.filter(player -> player.getAvg() == bestAverages).collect(Collectors.toList());
+		double playerWithBestStrike = playerWithBestAverages.stream().map(IPLMostRunsCSV::getSr).max(Double::compare)
+				.get();
+		return playerWithBestAverages.stream().filter(player -> player.getSr() == playerWithBestStrike)
+				.collect(Collectors.toList());
+	}
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
