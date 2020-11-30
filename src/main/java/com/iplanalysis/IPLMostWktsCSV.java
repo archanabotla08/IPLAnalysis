@@ -3,6 +3,30 @@ package com.iplanalysis;
 import com.opencsv.bean.CsvBindByName;
 
 public class IPLMostWktsCSV {
+	public int getNumber4w() {
+		return number4w;
+	}
+
+	public double getSr() {
+		return sr;
+	}
+
+	public void setSr(double sr) {
+		this.sr = sr;
+	}
+
+	public void setNumber4w(int number4w) {
+		this.number4w = number4w;
+	}
+
+	public int getNumber5w() {
+		return number5w;
+	}
+
+	public void setNumber5w(int number5w) {
+		this.number5w = number5w;
+	}
+
 	public double getEcon() {
 		return econ;
 	}

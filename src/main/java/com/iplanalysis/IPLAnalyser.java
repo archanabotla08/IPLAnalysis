@@ -145,6 +145,19 @@ public class IPLAnalyser {
 		Collections.reverse(playerWithBestEconomy);
 		return playerWithBestEconomy;
 	}
+	public List<IPLMostWktsCSV> bestBowlingStrikingRatesWith5wN4w(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		int playerWith4wN5w = iplWktsCSVList.stream().map(player -> (player.getNumber4w() + player.getNumber5w()))
+				.max(Integer::compare).get();
+		List<IPLMostWktsCSV> playerWithBest4wN5w = iplWktsCSVList.stream()
+				.filter(player -> player.getNumber4w() + player.getNumber4w() == playerWith4wN5w)
+				.collect(Collectors.toList());
+		double playerWithBestStrikeRate = playerWithBest4wN5w.stream().map(IPLMostWktsCSV::getSr).max(Double::compare)
+				.get();
+		return playerWithBest4wN5w.stream().filter(player -> player.getSr() == playerWithBestStrikeRate)
+				.collect(Collectors.toList());
+	}
 
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
