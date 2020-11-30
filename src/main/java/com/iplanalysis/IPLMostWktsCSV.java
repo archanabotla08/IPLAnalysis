@@ -3,6 +3,14 @@ package com.iplanalysis;
 import com.opencsv.bean.CsvBindByName;
 
 public class IPLMostWktsCSV {
+	public double getEcon() {
+		return econ;
+	}
+
+	public void setEcon(double econ) {
+		this.econ = econ;
+	}
+
 	@CsvBindByName(column = "POS")
 	public int pos;
 

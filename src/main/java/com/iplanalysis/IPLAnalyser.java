@@ -137,6 +137,15 @@ public class IPLAnalyser {
 		String sortedStateCensusJson = new Gson().toJson(this.iplWktsCSVList);
 		return sortedStateCensusJson;
 	}
+	public List<IPLMostWktsCSV> getBestBowlingEconomyCricketer(String csvFilePath)
+			throws IOException, CensusAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		List<IPLMostWktsCSV> playerWithBestEconomy = iplWktsCSVList.stream()
+				.sorted(Comparator.comparingDouble(IPLMostWktsCSV::getEcon)).collect(Collectors.toList());
+		Collections.reverse(playerWithBestEconomy);
+		return playerWithBestEconomy;
+	}
+
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {

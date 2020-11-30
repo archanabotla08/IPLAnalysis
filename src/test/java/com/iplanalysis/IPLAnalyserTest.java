@@ -103,5 +103,9 @@ public class IPLAnalyserTest {
 			e.printStackTrace();
 		}
 	}
-	
+	@Test
+	public void givenIPLInfo_ShouldReturnBestBowlingEconomyCricketerr() throws IOException, CensusAnalyserException {
+		assertEquals("Ben Cutting",
+				new IPLAnalyser().getBestBowlingEconomyCricketer(Wkt_File_Path).get(0).player);
+	}
 }
