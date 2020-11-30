@@ -120,4 +120,10 @@ public class IPLAnalyserTest {
 		assertEquals("Krishnappa Gowtham",
 				iplAnalyser.greatBowlingAveragesWithBestStrikingRates(Wkt_File_Path).get(0).player);
 	}
+	@Test
+	public void givenMostWktsCSV_ShouldReturnMaximumWickets_WithBestBowlingAvgs()
+			throws IOException, CensusAnalyserException {
+		assertEquals("Imran Tahir",
+				iplAnalyser.getBowlersMaximumWicketsWithBestBowlingAvgs(Wkt_File_Path).get(0).player);
+	}
 }
