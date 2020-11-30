@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 public class IPLAnalyser {
 	public static List<IPLMostRunsCSV> iplCSVList;
+	public static List<IPLMostWktsCSV> iplWktsCSVList;
 
 	public int loadCSVData(String indiaCensusCSVFilePath) throws CensusAnalyserException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCSVFilePath))) {
@@ -23,6 +24,16 @@ public class IPLAnalyser {
 			for (IPLMostRunsCSV iplMostRunsCSV : iplCSVList) {
 				System.out.println(iplMostRunsCSV);
 			}
+			return iplCSVList.size();
+		} catch (IOException e) {
+			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+		}
+	}
+	
+	public int loadWktsCSVData(String indiaCensusCSVFilePath) throws CensusAnalyserException {
+		try (Reader reader = Files.newBufferedReader(Paths.get(indiaCensusCSVFilePath))) {
+			ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
+			iplWktsCSVList = csvBuilder.getCSVFileList(reader, IPLMostWktsCSV.class);
 			return iplCSVList.size();
 		} catch (IOException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
@@ -105,6 +116,17 @@ public class IPLAnalyser {
 		return playerWithMaxRuns.stream().filter(player -> player.getAvg() == playerWithBestAverages)
 				.collect(Collectors.toList());
 	}
+	
+	public String getTopBowlingAverages(String csvFilePath) throws CensusAnalyserException {
+		loadWktsCSVData(csvFilePath);
+		if (iplWktsCSVList == null || iplWktsCSVList.size() == 0) {
+			throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+		}
+		Comparator<IPLMostWktsCSV> censusComparator = Comparator.comparing(census -> census.avg);
+		this.wktsSort(censusComparator);
+		String sortedStateCensusJson = new Gson().toJson(this.iplWktsCSVList);
+		return sortedStateCensusJson;
+	}
 
 	public void sort(Comparator<IPLMostRunsCSV> censusComparator) {
 		for (int i = 0; i < iplCSVList.size(); i++) {
@@ -114,6 +136,18 @@ public class IPLAnalyser {
 				if (censusComparator.compare(census1, census2) > 0) {
 					iplCSVList.set(j, census2);
 					iplCSVList.set(j + 1, census1);
+				}
+			}
+		}
+	}
+	public void wktsSort(Comparator<IPLMostWktsCSV> censusComparator) {
+		for (int i = 0; i < iplWktsCSVList.size(); i++) {
+			for (int j = 0; j < iplWktsCSVList.size() - i - 1; j++) {
+				IPLMostWktsCSV census1 = iplWktsCSVList.get(j);
+				IPLMostWktsCSV census2 = iplWktsCSVList.get(j + 1);
+				if (censusComparator.compare(census1, census2) > 0) {
+					iplWktsCSVList.set(j, census2);
+					iplWktsCSVList.set(j + 1, census1);
 				}
 			}
 		}

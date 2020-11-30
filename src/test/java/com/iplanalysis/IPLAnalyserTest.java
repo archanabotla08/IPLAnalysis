@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 public class IPLAnalyserTest {
 
 	public static final String  File_Path = "C:\\Users\\AB\\eclipse-workspace\\IPLAnalysis\\static\\IPL2019FactsheetMostRuns.csv";
-	
+	public static final String Wkt_File_Path = "C:\\Users\\AB\\eclipse-workspace\\IPLAnalysis\\static\\IPL2019FactsheetMostWkts.csv";
 	private static IPLAnalyser iplAnalyser;
 
 	@BeforeClass
@@ -61,6 +61,7 @@ public class IPLAnalyserTest {
 		assertEquals("Andre Russell", new IPLAnalyser().getTop6sStrikerCricketer(File_Path).get(0).player);
 	}
 	
+	
 
 	@Test
 	public void givenIPLInfo_ShouldReturnTop6sStrikerNAveragesCricketer() throws IOException, CensusAnalyserException {
@@ -78,5 +79,17 @@ public class IPLAnalyserTest {
 			throws IOException, CensusAnalyserException {
 		assertEquals("David Warner",
 				new IPLAnalyser().bestCricketersWhoHitMaxWithBestAverages(File_Path).get(0).player);
+	}
+	
+	@Test
+	public void givenIPLInfo_ShouldReturnTopBowlingAverages() {
+		String sortedCensusData = null;
+		try {
+			sortedCensusData = iplAnalyser.getTopBattingAverages(Wkt_File_Path);
+			IPLMostWktsCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IPLMostWktsCSV[].class);
+			assertEquals(166, censusCSV[censusCSV.length - 1].avg, 0.0);
+		} catch (CensusAnalyserException e) {
+			e.printStackTrace();
+		}
 	}
 }
