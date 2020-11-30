@@ -60,4 +60,11 @@ public class IPLAnalyserTest {
 		List<IPLMostRunsCSV> lst = new IPLAnalyser().getTop6sStrikerCricketer(File_Path);
 		assertEquals("Andre Russell", new IPLAnalyser().getTop6sStrikerCricketer(File_Path).get(0).player);
 	}
+	
+
+	@Test
+	public void givenIPLInfo_ShouldReturnTop6sStrikerNAveragesCricketer() throws IOException, CensusAnalyserException {
+		assertEquals("Andre Russell",
+				new IPLAnalyser().bestStrikingRatesWith6sN4sCriketer(File_Path).get(0).player);
+	}
 }

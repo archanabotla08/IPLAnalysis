@@ -54,6 +54,14 @@ public class IPLMostRunsCSV {
 	public int getNum6s() {
 		return number6s;
 	}
+	public double getSr() {
+		return sr;
+	}
+
+	public void setSr(double sr) {
+		this.sr = sr;
+	}
+
 	@Override
 	public String toString() {
 		return "IPLMostRunsCSV [pos=" + pos + ", player=" + player + ", mat=" + mat + ", inns=" + inns + ", no=" + no
